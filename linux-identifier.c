@@ -1,3 +1,9 @@
+/* 
+ * Author: H3ssan
+ * GitHub: https://github.com/H3ssan/Linux-Identifier
+ * Website: https://H3ssan.github.io
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -44,7 +50,7 @@ int pacManagers(){
 
 int defs()
 {
-	printf("%c%c", 10, 10);
+	printf("%c%c", 10, 10 );		// FIX THE COLOR
 
 	system("echo 'Logged On User  : ' " ANSI_BLUE_COLOR "\"${USER}\"" ANSI_RESET_COLOR );
 	system("echo 'Home Directory  : ' " ANSI_BLUE_COLOR "\"${HOME}\"" ANSI_RESET_COLOR );
@@ -57,7 +63,7 @@ int defs()
 
 int OSD()
 {
-	printf("%c%c", 10, 10);
+	printf("%c%c", 10, 10 );		// FIX THE COLOR
 
 	system("printf 'Operating System    : ' ; cat /etc/os-release | grep '^NAME=' | sed -ne 's/NAME=//p'");
 	system("printf 'Bassid On [ID_LIKE] : ' ; cat /etc/os-release | grep '^ID_LIKE=' | sed -ne 's/ID_LIKE=//p'");
@@ -68,7 +74,22 @@ int OSD()
 
 int recommended_packages()
 {
-	printf("");
+	printf("%c%c", 10, 10 );		// FIX THE COLOR
+
+	const unsigned int a = 5;
+	const char *rec_packages[a] = {"/usr/bin/firefox",
+								   "/usr/bin/geany",
+								   "/usr/bin/gimp",
+								   "/usr/bin/krita",
+								   "/usr/bin/veracrypt"};
+
+	for ( unsigned int i = 0; i < (a); i++)
+	{
+		if (access(rec_packages[i], X_OK) != -1)
+			printf("%s .... " ANSI_GREEN_COLOR "[Installed]" ANSI_RESET_COLOR "\n", rec_packages[i]);
+		else
+			printf("%s .... " ANSI_RED_COLOR "[NOT Installed]" ANSI_RESET_COLOR "\n", rec_packages[i]);
+	}
 
 	return 0;
 }
@@ -90,12 +111,10 @@ int main(int argc, char *argv[])
 		printf( ANSI_MAGENTA_COLOR "%c" ANSI_RESET_COLOR , c[i]);
 	OSD();
 
-	/*
-	char d[] = {9, 83, 101, 97, 114, 99, 104, 105, 110, 103, 32, 70, 111, 114, 32, 82, 101, 99, 111, 109, 109, 101, 110, 100, 101, 100, 32, 80, 97, 99, 107, 97, 103, 101, 115, 10, 10};
+	char d[] = {9, 83, 101, 97, 114, 99, 104, 105, 110, 103, 32, 70, 111, 114, 32, 82, 101, 99, 111, 109, 109, 101, 110, 100, 101, 100, 32, 80, 97, 99, 107, 97, 103, 101, 115};
 	for (unsigned int i = 0; i < sizeof(d); i++)
 		printf( ANSI_MAGENTA_COLOR "%c" ANSI_RESET_COLOR , d[i]);
 	recommended_packages();
-	*/
 
 	return 0;
 }
